@@ -12,5 +12,7 @@ module.exports = {
   },
   rules: {
     'class-methods-use-this': 'off',
+    'linebreak-style': 0,
+    camelcase: 'off',
   },
 };
