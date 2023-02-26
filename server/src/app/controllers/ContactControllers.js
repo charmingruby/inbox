@@ -54,7 +54,7 @@ class ContactController {
       name, email, phone, category_id,
     });
 
-    return res.status(200).json(contact);
+    return res.json(contact);
   }
 
   async delete(req, res) {
