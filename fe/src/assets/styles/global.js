@@ -9,11 +9,12 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background-color:${({ theme }) => theme.backgroundColor};
+    background-color:${({ theme }) => theme.colors.background};
     font-size: 16px;
+    color: ${({ theme }) => theme.colors.gray[900]}
   }
 
-  button, input, a, text-area {
+  button, input, a, text-area, select {
     cursor: pointer;
   }
 
