@@ -20,6 +20,8 @@
       "linebreak-style": 0,
       "import/prefer-default-export": "off",
       "react/jsx-filename-extension": [1, {"extensions": [".js", ".jsx"]}],
-      "react/react-in-jsx-scope": 0
+      "react/react-in-jsx-scope": 0,
+      "no-unused-vars": "warn",
+      "arrow-body-style":"off"
     }
 }
