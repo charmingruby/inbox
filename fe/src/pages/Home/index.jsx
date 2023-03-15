@@ -6,10 +6,14 @@ import arrow from '../../assets/images/icons/arrow.svg';
 import edit from '../../assets/images/icons/edit.svg';
 import trash from '../../assets/images/icons/trash.svg';
 
+import { Loader } from '../../components/Loader';
+import { delay } from '../../utils/delay';
+
 export function Home() {
   const [contacts, setContacts] = useState([]);
   const [orderBy, setOrderBy] = useState('asc');
   const [searchTerm, setSearchTerm] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   const filteredContacts = useMemo(() => {
     return contacts.filter(
@@ -18,17 +22,16 @@ export function Home() {
   }, [searchTerm, contacts]);
 
   useEffect(() => {
-    fetch(`http://localhost:3333/contacts?orderBy=${orderBy}`, {
-      method: 'GET',
-      headers: new Headers({
-        'X-App-ID': '123',
-      }),
-    })
+    setIsLoading(true);
+    fetch(`http://localhost:3333/contacts?orderBy=${orderBy}`)
       .then(async (response) => {
+        await delay(500);
+
         const json = await response.json();
         setContacts(json);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error))
+      .finally(() => setIsLoading(false));
   }, [orderBy]);
 
   const handleToggleOrderBy = () => {
@@ -41,6 +44,7 @@ export function Home() {
 
   return (
     <S.Container>
+      <Loader isLoading={isLoading} />
       <S.InputSearchContainer>
         <input value={searchTerm} onChange={handleChangeSearchTerm} type="text" placeholder="Search by name..." />
       </S.InputSearchContainer>
