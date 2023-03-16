@@ -5,7 +5,8 @@
     },
     "extends": [
         "plugin:react/recommended",
-        "airbnb"
+        "airbnb",
+        "plugin:react-hooks/recommended"
     ],
     "overrides": [
     ],
@@ -14,7 +15,8 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react"
+        "react",
+        "react-hooks"
     ],
     "rules": {
       "linebreak-style": 0,
@@ -22,6 +24,8 @@
       "react/jsx-filename-extension": [1, {"extensions": [".js", ".jsx"]}],
       "react/react-in-jsx-scope": 0,
       "no-unused-vars": "warn",
-      "arrow-body-style":"off"
+      "arrow-body-style":"off",
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn"
     }
 }
