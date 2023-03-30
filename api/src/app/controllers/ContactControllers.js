@@ -12,7 +12,7 @@ class ContactController {
     const { id } = req.params;
     const contact = await ContactsRepository.findById(id);
 
-    if (!contact) return res.status(404).json({ error: 'User not found.' });
+    if (!contact) return res.status(404).json({ error: 'Contact not found.' });
 
     return res.json(contact);
   }
@@ -43,7 +43,7 @@ class ContactController {
     } = req.body;
 
     const contactExists = await ContactsRepository.findById(id);
-    if (!contactExists) return res.status(404).json({ error: 'User not found.' });
+    if (!contactExists) return res.status(404).json({ error: 'Contact not found.' });
 
     if (!name) return res.status(400).json({ error: 'Name is required.' });
 
