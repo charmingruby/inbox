@@ -12,6 +12,7 @@ import edit from '../../assets/images/icons/edit.svg';
 import trash from '../../assets/images/icons/trash.svg';
 import sad from '../../assets/images/icons/sad.svg';
 import emptyBox from '../../assets/images/icons/empty-box.svg';
+import magnifierQuestion from '../../assets/images/icons/magnifier-question.svg';
 
 import Button from '../../components/ui/Button';
 import { Loader } from '../../components/Loader';
@@ -38,7 +39,7 @@ export function Home() {
       const contactsList = await ContactsService.listContacts(orderBy);
 
       setHasError(false);
-      // setContacts(contactsList);
+      setContacts(contactsList);
     } catch (error) {
       setHasError(true);
     } finally {
@@ -127,6 +128,21 @@ export function Home() {
                   button above to register the first.
                 </p>
               </S.EmptyListContainer>
+            )
+          }
+
+          {
+            contacts.length > 0 && filteredContacts.length < 1 && (
+              <S.SearchNotFoundContainer>
+                <img src={magnifierQuestion} alt="Magnifier Question Icon" />
+
+                <span>
+                  No results found for
+                  &quot;
+                  {searchTerm}
+                  &quot;
+                </span>
+              </S.SearchNotFoundContainer>
             )
           }
 

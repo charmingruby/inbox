@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useErrors } from '../../hooks/useErrors';
+import CategoriesService from '../../services/CategoriesService';
 
 import * as S from './styles';
 
@@ -18,7 +19,8 @@ export function ContactForm({ buttonLabel }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [category, setCategory] = useState('');
+  const [categoryId, setCategoryId] = useState('');
+  const [categories, setCategories] = useState([]);
 
   const {
     setError,
@@ -57,6 +59,15 @@ export function ContactForm({ buttonLabel }) {
     event.preventDefault();
   };
 
+  useEffect(() => {
+    async function loadCategories() {
+      const categoriesList = await CategoriesService.listCategories();
+      setCategories(categoriesList);
+    }
+
+    loadCategories();
+  }, []);
+
   return (
     <S.Form meth action="/" onSubmit={handleSubmit} noValidate>
       <FormGroup error={getErrorMessageByFieldname('name')}>
@@ -91,12 +102,17 @@ export function ContactForm({ buttonLabel }) {
 
       <FormGroup>
         <Select
-          value={category}
-          onChange={(event) => setCategory(event.target.value)}
+          value={categoryId}
+          onChange={(event) => setCategoryId(event.target.value)}
         >
-          <option value="">Category</option>
-          <option value="instagram">Instagram</option>
-          <option value="discord">Discord</option>
+          <option value="">No category</option>
+          {
+            categories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))
+          }
         </Select>
       </FormGroup>
 
